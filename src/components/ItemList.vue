@@ -1,0 +1,91 @@
+<template>
+    <div class="container">
+        <h1>ADD ITEM PAGE</h1>
+        
+
+        <router-link :to="{ path: '/add' }"><button type="button" class="btn btn-primary">ADD</button></router-link>
+
+        <input type="text" v-model="keywords">
+
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Category</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="items in result" v-bind:key="items.id">
+                <th scope="row">{{ items.name }}</th>
+                <td>{{ items.description }}</td>
+                <td>{{ items.price }}</td>
+                <td>{{ items.quantity }}</td>
+                <td>{{ items.category }}</td>
+                <td>
+                    <router-link :to="{name: 'edit', params: { id: items.id }}" class="btn btn-primary">Edit</router-link>
+                    <button type="button" @click="DeleteItems(items)" class="btn btn-danger">delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <td>te{{ result.category }}</td>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+
+export default{
+    name : 'ItemView',
+    data () {
+        return{
+            keywords: null,
+            result: {},
+        }
+    },
+
+    watch: {
+        keywords(after, before) {
+            this.fetch();
+        }
+    },
+
+    created() {
+        this.GetItems();
+    },
+
+    methods: {
+
+        GetItems(){
+            var page = 'http://127.0.0.1:8000/api/items';
+            axios.get(page)
+            .then(
+                ({data})=>{
+                    console.log(data);
+                    this.result = data;
+                }
+            )
+        },
+        DeleteItems(items){
+            var page = `http://127.0.0.1:8000/api/delete/${items.id}`;
+            axios.get(page)
+                    .then(response => {
+                        // let i = this.posts.map(item => item.id).indexOf(id); // find index of object
+                        // this.posts.splice(i, 1)
+                        alert("item Deleted!!!!!!");
+                    });
+        },       
+        fetch() {
+            axios.get('http://127.0.0.1:8000/api/search?keywords=', { params: { keywords: this.keywords } })
+                .then(response => this.result = response.data)
+                .catch(error => {});
+        }
+
+    }
+}
+</script>
