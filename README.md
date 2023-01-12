@@ -1,14 +1,23 @@
 # test
 
--configure the .env 
--database used postgres
+> A Vue.js project
+## Build Setup
 
-#command for depencies
--composer update
--npm install
--php artisan migrate:fresh --seed
--php artisan serve
--npm run dev
-
+``` bash
+# install dependencies
+npm install
+# serve with hot reload at localhost:8080
+npm run dev
+# build for production with minification
+npm run build
+# build for production and view the bundle analyzer report
+npm run build --report
+# run unit tests
+npm run unit
+# run e2e tests
+npm run e2e
+# run all tests
+npm test
+```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
