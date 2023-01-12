@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/items',[App\Http\Controllers\ItemsController::class, 'index']);
+Route::get('/category',[App\Http\Controllers\ItemsController::class, 'getCategory']);
 Route::post('/save',[App\Http\Controllers\ItemsController::class, 'store']);
 Route::get('/edit/{id}',[App\Http\Controllers\ItemsController::class, 'edit']);
 Route::post('/update/{id}',[App\Http\Controllers\ItemsController::class, 'update']);

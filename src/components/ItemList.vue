@@ -2,11 +2,23 @@
     <div class="container">
         <h1>ADD ITEM PAGE</h1>
         
+        <!-- Example single danger button -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Filter
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">All</a></li>
+                    <li><a class="dropdown-item" href="#">With Stocks</a></li>
+                    <li><a class="dropdown-item" href="#">No stocks</a></li>
+                </ul>
+        </div>
 
         <router-link :to="{ path: '/add' }"><button type="button" class="btn btn-primary">ADD</button></router-link>
 
-        <input type="text" v-model="keywords">
+        <input type="text" v-model="keywords" placeholder="search name..">
 
+        <br>
         <table class="table table-dark">
             <thead>
               <tr>
@@ -24,7 +36,7 @@
                 <td>{{ items.description }}</td>
                 <td>{{ items.price }}</td>
                 <td>{{ items.quantity }}</td>
-                <td>{{ items.category }}</td>
+                <td>{{ items.categorys[0].name }}</td>
                 <td>
                     <router-link :to="{name: 'edit', params: { id: items.id }}" class="btn btn-primary">Edit</router-link>
                     <button type="button" @click="DeleteItems(items)" class="btn btn-danger">delete</button>
@@ -32,13 +44,11 @@
               </tr>
             </tbody>
           </table>
-          <td>te{{ result.category }}</td>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-
 
 export default{
     name : 'ItemView',
@@ -66,8 +76,8 @@ export default{
             axios.get(page)
             .then(
                 ({data})=>{
-                    console.log(data);
-                    this.result = data;
+                    console.log(data)
+                    this.result = data
                 }
             )
         },
@@ -75,15 +85,14 @@ export default{
             var page = `http://127.0.0.1:8000/api/delete/${items.id}`;
             axios.get(page)
                     .then(response => {
-                        // let i = this.posts.map(item => item.id).indexOf(id); // find index of object
-                        // this.posts.splice(i, 1)
-                        alert("item Deleted!!!!!!");
+                        alert("item Deleted!!!!!!")
+                        this.GetItems()
                     });
         },       
         fetch() {
             axios.get('http://127.0.0.1:8000/api/search?keywords=', { params: { keywords: this.keywords } })
                 .then(response => this.result = response.data)
-                .catch(error => {});
+                .catch(error => {})
         }
 
     }

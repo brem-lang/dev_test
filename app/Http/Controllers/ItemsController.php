@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Items;
 use App\Models\Category;
+use App\Models\CategoryList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -23,6 +24,11 @@ class ItemsController extends Controller
         return response()->json($item);
     }
 
+    public function getCategory(){
+        $category = CategoryList::all();
+        return response()->json($category);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,7 +36,7 @@ class ItemsController extends Controller
      */
     public function search(Request $request)
     {
-        $item = Items::where('name',$request->keywords)->get();
+        $item = Items::with('categorys')->where('name',$request->keywords)->get();
         return response()->json($item);
     }
 
@@ -66,10 +72,6 @@ class ItemsController extends Controller
      * @param  \App\Models\Items  $items
      * @return \Illuminate\Http\Response
      */
-    public function show(Items $items)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -79,7 +81,7 @@ class ItemsController extends Controller
      */
     public function edit($id)
     {
-        $item = Items::find($id);
+        $item = Items::with('categorys')->find($id);
         return response()->json($item);
     }
 
@@ -92,9 +94,15 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $item = Items::find($id);
         $item->update($request->all());
-        return response()->json('The poitemst successfully updated');
+
+        $category = Category::where('id', $id);
+        $category->update([
+            'name' => $request->input('categorys')[0]['name'],
+        ]);
+        return response()->json('successfully updated');
     }
 
     /**

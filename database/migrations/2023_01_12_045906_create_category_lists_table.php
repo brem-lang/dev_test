@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('category_lists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('item_id')->nullable()->references('id')->on('items')->onDelete('cascade');
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('category_lists');
     }
 };
