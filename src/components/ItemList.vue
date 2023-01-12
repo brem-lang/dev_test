@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1>ADD ITEM PAGE</h1>
+        <h1>PRODUCT PAGE</h1>
         
         <!-- Example single danger button -->
         <div class="btn-group">
@@ -14,9 +14,11 @@
                 </ul>
         </div>
 
-        <router-link :to="{ path: '/add' }"><button type="button" class="btn btn-primary">ADD</button></router-link>
+        <router-link :to="{ path: '/add' }"><button type="button" class="btn btn-primary">ADD PRODUCT</button></router-link>
 
-        <input type="text" v-model="keywords" placeholder="search name..">
+        <router-link :to="{ path: '/category' }"><button type="button" class="btn btn-secondary">CATEGORY</button></router-link>
+
+        <input type="text"  v-model="keywords" placeholder="search name..">
 
         <br>
         <table class="table table-dark">

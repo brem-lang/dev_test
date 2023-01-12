@@ -25,6 +25,10 @@ Route::get('/search', [App\Http\Controllers\ItemsController::class, 'search']);
 Route::get('/with-stock', [App\Http\Controllers\ItemsController::class, 'withStocks']);
 Route::get('/no-stock', [App\Http\Controllers\ItemsController::class, 'noStocks']);
 
+Route::get('/category-list',[App\Http\Controllers\CategoryListController::class, 'index']);
+Route::post('/category-add',[App\Http\Controllers\CategoryListController::class, 'store']);
+Route::get('/category-delete/{id}',[App\Http\Controllers\CategoryListController::class, 'destroy']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

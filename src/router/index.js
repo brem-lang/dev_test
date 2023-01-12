@@ -4,6 +4,8 @@ import HelloWorld from '@/components/HelloWorld'
 import ItemList from '@/components/ItemList'
 import ItemAdd from '@/components/ItemAdd'
 import ItemEdit from '@/components/ItemEdit'
+import CategoryList from '@/components/CategoryList'
+import CategoryAdd from '@/components/CategoryAdd'
 
 Vue.use(Router)
 
@@ -28,6 +30,16 @@ export default new Router({
       path: '/edit',
       name: 'edit',
       component: ItemEdit
+    },
+    {
+      path: '/category',
+      name: 'category',
+      component: CategoryList
+    },
+    {
+      path: '/categoryAdd',
+      name: 'categoryAdd',
+      component: CategoryAdd
     }
   ]
 })

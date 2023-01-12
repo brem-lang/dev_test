@@ -14,7 +14,8 @@ class CategoryListController extends Controller
      */
     public function index()
     {
-        //
+        $list = CategoryList::all();
+        return response()->json($list);
     }
 
     /**
@@ -35,7 +36,13 @@ class CategoryListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new CategoryList([
+            'name'   => $request->input('category'),
+        ]);
+
+        $category->save();
+
+        return response()->json('category successfully added');
     }
 
     /**
@@ -78,8 +85,11 @@ class CategoryListController extends Controller
      * @param  \App\Models\CategoryList  $categoryList
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoryList $categoryList)
+    public function destroy($id)
     {
-        //
+        $items = CategoryList::find($id);
+        $items->delete();
+ 
+        return response()->json('The category successfully deleted');
     }
 }
