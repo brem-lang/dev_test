@@ -29,6 +29,16 @@ class ItemsController extends Controller
         return response()->json($category);
     }
 
+    public function withStocks(){
+        $item = Items::with('categorys')->where('quantity', '!=', 0 )->get();
+        return response()->json($item);
+    }
+
+    public function noStocks(){
+        $item = Items::with('categorys')->where('quantity', '=', 0 )->get();
+        return response()->json($item);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

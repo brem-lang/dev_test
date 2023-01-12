@@ -8,9 +8,9 @@
                 Filter
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">All</a></li>
-                    <li><a class="dropdown-item" href="#">With Stocks</a></li>
-                    <li><a class="dropdown-item" href="#">No stocks</a></li>
+                    <li><a class="dropdown-item" @click="showAll()" href="#">Show All</a></li>
+                    <li><a class="dropdown-item" @click="withStocks()" href="#">With Stocks</a></li>
+                    <li><a class="dropdown-item" @click="noStocks()" href="#">No stocks</a></li>
                 </ul>
         </div>
 
@@ -93,7 +93,23 @@ export default{
             axios.get('http://127.0.0.1:8000/api/search?keywords=', { params: { keywords: this.keywords } })
                 .then(response => this.result = response.data)
                 .catch(error => {})
+        },
+
+        showAll(){
+            this.$router.go(this.$router.currentRoute)
+        },
+        withStocks(){
+            axios.get('http://127.0.0.1:8000/api/with-stock')
+                .then(response => this.result = response.data)
+                .catch(error => {})
+        },
+        noStocks(){
+            axios.get('http://127.0.0.1:8000/api/no-stock')
+                .then(response => this.result = response.data)
+                .catch(error => {})
         }
+
+
 
     }
 }

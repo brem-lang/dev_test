@@ -22,6 +22,8 @@ Route::get('/edit/{id}',[App\Http\Controllers\ItemsController::class, 'edit']);
 Route::post('/update/{id}',[App\Http\Controllers\ItemsController::class, 'update']);
 Route::get('/delete/{id}',[App\Http\Controllers\ItemsController::class, 'destroy']);
 Route::get('/search', [App\Http\Controllers\ItemsController::class, 'search']);
+Route::get('/with-stock', [App\Http\Controllers\ItemsController::class, 'withStocks']);
+Route::get('/no-stock', [App\Http\Controllers\ItemsController::class, 'noStocks']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
