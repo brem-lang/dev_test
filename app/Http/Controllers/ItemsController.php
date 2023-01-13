@@ -35,7 +35,7 @@ class ItemsController extends Controller
     }
 
     public function noStocks(){
-        $item = Items::with('categorys')->where('quantity', '=', 0 )->get();
+        $item = Items::with('categorys')->where('quantity', '<', 1 )->get();
         return response()->json($item);
     }
 
@@ -58,11 +58,12 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
+
         $item = new Items([
             'name'          => $request->name,
             'description'   => $request->description,
             'price'         => $request->price,
-            'quantity'      => $request->quantity,
+            'quantity'      => $request->quantity ?? 0,
         ]);
         $item->save();
 
